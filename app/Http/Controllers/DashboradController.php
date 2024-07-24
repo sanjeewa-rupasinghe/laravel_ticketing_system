@@ -16,13 +16,15 @@ class DashboradController extends Controller
         // $user->password = "abc3";
         // $user->save();
 
-        $user = User::create([
-            "name" => "abc6 efg bnm",
-            "email" => "abc11@mail.com",
-            "password" => "abc6"
-        ]);
+        // $user = User::create([
+        //     "name" => "abc6 efg bnm",
+        //     "email" => "abc11@mail.com",
+        //     "password" => "abc6"
+        // ]);
 
-        dd($user,$user->name);
+        $user=User::where('id',2)->update(['avatar'=>'abc123.png']);
+
+        dd($user);
 
         dd(User::all());
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateAvatarRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +58,15 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    /**
+     * Update avatar
+     */
+    function updateAvatar(UpdateAvatarRequest $request)
+    {
+        $path=$request->file('avatar')->store('avatars','public');
+        User::find(Auth()->id())->update(['avatar'=>$path]);
+        return back();
     }
 }
