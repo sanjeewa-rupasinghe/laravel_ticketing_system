@@ -11,23 +11,38 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @foreach ($tickets as $ticket)
-                        <div>
-                            <div class="flex">
-                                <div class="w-3/4">
+                        <div class="p-6 mt-3 border rounded-lg">
+                            <div>
+                                <a href="#"
+                                    class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        {{ $ticket->title }}
+                                    </h5>
+                                    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest
+                                        {{ $ticket->description }}
+                                    </p>
+                                </a>
+                                <div class="flex">
                                     <a href="#"
-                                        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                        <h5
-                                            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                            {{ $ticket->title }}
-                                        </h5>
-                                        <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest
-                                            {{ $ticket->description }}
-                                        </p>
+                                        class="p-6 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                        Resolve
                                     </a>
+                                    <a href="#"
+                                        class="p-6 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                        Reject
+                                    </a>
+                                    <a href="#"
+                                        class="p-6 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                        Withdraw
+                                    </a>
+                                    @if($ticket->attachment)
+                                    <a href="/storage/{{$ticket->attachment}}" target="_blank"
+                                        class="p-6 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                        Attachment
+                                    </a>
+                                    @endif
                                 </div>
-                                <div class="w-1/4">
 
-                                </div>
                             </div>
                         </div>
                     @endforeach

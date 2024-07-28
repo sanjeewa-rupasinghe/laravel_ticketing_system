@@ -36,6 +36,14 @@ class TicketController extends Controller
         $ticket->description = $request->description;
         $ticket->user_id = Auth()->id();
         $ticket->save();
+
+        if($request->file('file')){
+            $path=$request->file('file')->store('attachment','public');
+            $ticket->attachment=$path;
+            $ticket->save();
+        }
+
+
         return redirect(route('dashboard'))->with('success','Ticket created');
     }
 
