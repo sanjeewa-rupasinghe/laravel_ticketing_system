@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Create a new ticket
+            Update - '{{$ticket->title}}' ticket
         </h2>
     </x-slot>
 
@@ -14,17 +14,18 @@
                     @include('components.alert.alert')
                     <!-- ALERT -->
 
-                    <form action="{{ route('ticket.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('ticket.update',['ticket'=>$ticket->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('patch')
                         <div>
                             <x-input-label for="name" :value="'Title'" class="mt-3" />
-                            <x-text-input class="block w-full mt-1" type="text" name="title" required />
+                            <x-text-input class="block w-full mt-1" type="text" name="title" value="{{$ticket->title}}" required />
                             <x-input-label for="description" :value="'Description'" class="mt-3" />
-                            <x-text-area name="description" value="" required/>
+                            <x-text-area name="description" value='{{$ticket->description}}' required/>
                             <x-input-label for="email" :value="'Attachment'" class="mt-3" />
                             <x-text-input class="block w-full mt-1" type="file" name="file" />
                             <x-primary-button class="mt-6">
-                                Create
+                                Update
                             </x-primary-button>
                         </div>
                     </form>

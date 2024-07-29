@@ -10,17 +10,27 @@
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
+                     <!-- ALERT -->
+                     @include('components.alert.alert')
+                     <!-- ALERT -->
+
                     @foreach ($tickets as $ticket)
                         <div class="p-6 mt-3 border rounded-lg">
                             <div>
-                                <a href="#"
+                                <a href="{{route('ticket.show',['ticket'=>$ticket->id])}}"
                                     class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                         {{ $ticket->title }}
                                     </h5>
-                                    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest
-                                        {{ $ticket->description }}
-                                    </p>
+                                        <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            {{ $ticket->description }}
+                                        </p>
+                                    <small>
+                                        <p>
+                                            {{$ticket->created_at->diffForHumans()}} by ---
+                                            {{-- {{$ticket->user->name}} --}}
+                                        </p>
+                                    </small>
                                 </a>
                                 <div class="flex">
                                     <a href="#"

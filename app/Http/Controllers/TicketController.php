@@ -14,7 +14,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets=Ticket::get();
+        $tickets=Ticket::latest()->get();
         return view('dashboard',compact('tickets'));
     }
 
@@ -43,7 +43,6 @@ class TicketController extends Controller
             $ticket->save();
         }
 
-
         return redirect(route('dashboard'))->with('success','Ticket created');
     }
 
@@ -52,15 +51,7 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
+        return view('tickets.show',compact('ticket'));
     }
 
     /**
@@ -68,14 +59,14 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-        //
+        $ticket->update($request->validated());
+
+        if($request->file('file')){
+            $path=$request->file('file')->store('attachment','public');
+            $ticket->attachment=$path;
+            $ticket->save();
+        }
+        return redirect(route('dashboard'))->with('success','Ticket is updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
 }
