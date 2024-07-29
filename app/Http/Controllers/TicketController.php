@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
+use App\Http\Requests\UpdateStatusTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets=Ticket::latest()->get();
+        $tickets=Ticket::latest()->with('userObj')->get();
         return view('dashboard',compact('tickets'));
     }
 
@@ -69,4 +70,15 @@ class TicketController extends Controller
         return redirect(route('dashboard'))->with('success','Ticket is updated');
     }
 
+    /**
+     * Update the status
+     */
+    public function updateStatus(UpdateStatusTicketRequest $request, Ticket $ticket)
+    {
+        $ticket->status=$request->status;
+        $ticket->status_changed_by_id=Auth()->id();
+        $ticket->save();
+
+        return redirect(route('dashboard'))->with('success','Ticket status updated');
+    }
 }

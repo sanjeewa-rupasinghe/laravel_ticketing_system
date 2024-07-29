@@ -8,17 +8,24 @@ use Spatie\Activitylog\LogOptions;
 
 class Ticket extends Model
 {
-    protected $fillable=['title','description','status','user','status_changed_by_id','attachment'];
+    protected $fillable = ['title', 'description', 'status', 'status_changed_by_id', 'attachment'];
 
-    public function getActivitylogOptions()
+    // ACTIVITY LOGGING ===================
+    use LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['title','description','status','user','status_changed_by_id','attachment'])
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->logOnly(['title', 'description', 'status', 'status_changed_by_id', 'attachment'])
+            ->logOnlyDirty();
     }
+    // END ACTIVITY LOGGING ===================
 
-    public function user(){
-        return $this->belongsTo(User::class,'user','id');
+    // RELATIONS ===================
+    public function userObj()
+    {
+        return $this->hasOne(User::class, 'id', 'user');
     }
+    // END RELATIONS ===================
+
 }

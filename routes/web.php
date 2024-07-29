@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     // TICKETS ==================
     Route::get('/dashboard', [TicketController::class,'index'])->middleware(['verified'])->name('dashboard');
     Route::resource('ticket',TicketController::class);
+    Route::patch('/ticket/status/{ticket}', [TicketController::class,'updateStatus'])->name('ticket.update.status');
 });
 
 require __DIR__.'/auth.php';
